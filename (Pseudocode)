@@ -1,0 +1,44 @@
+// Main Activity
+public class MainActivity extends AppCompatActivity {
+    SpeechRecognitionModule speechRecognition;
+    CountingLogic countingLogic;
+    DataStorage dataStorage;
+    Display display;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        speechRecognition = new SpeechRecognitionModule(this);
+        countingLogic = new CountingLogic();
+        dataStorage = new DataStorage(this);
+        display = new Display(this);
+
+        speechRecognition.setListener(command -> {
+            countingLogic.updateCounts(command);
+            display.updateDisplay(countingLogic.getCounts());
+            dataStorage.saveData(countingLogic.getCounts());
+        });
+    }
+}
+
+// SpeechRecognitionModule.java
+public class SpeechRecognitionModule {
+    // Implementation of continuous speech recognition
+}
+
+// CountingLogic.java
+public class CountingLogic {
+    // Logic to parse and count keywords
+}
+
+// DataStorage.java
+public class DataStorage {
+    // Methods to save and retrieve data
+}
+
+// Display.java
+public class Display {
+    // Methods to update UI elements
+}
